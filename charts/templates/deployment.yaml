@@ -36,4 +36,4 @@ spec:
         #   valueFrom:
         #     secretKeyRef:
         #       key: {{ .Values.env.name.api_token }}
-        #       name: {{ include "common.name" . }}-credentials
+        #       name: {{ .Values.service.name }}-credentials

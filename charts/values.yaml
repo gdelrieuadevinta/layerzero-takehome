@@ -6,8 +6,9 @@ currency:
     name: bitcoin
   vs_currency:
     name: cny
-#   api_token:
-#     name: API_TOKEN
+env:
+  name:
+    api_token: API_TOKEN
 
 # sealedSecret:
 #   encryptedData:

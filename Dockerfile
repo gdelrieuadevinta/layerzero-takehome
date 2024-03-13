@@ -11,7 +11,7 @@ RUN go mod download
 COPY . ./
 
 # Build the application
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o price_checker
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o price_checker
 
 FROM debian:buster-slim
 WORKDIR /root/
@@ -23,7 +23,7 @@ RUN apt-get update \
 
 COPY --from=builder /app/price_checker .
 
-# Set default environment variables for the application
+# Default environment variables for the application
 ENV MAIN_CURRENCY=bitcoin
 ENV VS_CURRENCY=cny
 

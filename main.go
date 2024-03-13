@@ -13,6 +13,13 @@ type CoinGeckoResponse struct {
 	Prices [][]float64 `json:"prices"`
 }
 
+type PriceResponse struct {
+	MainCurrency string  `json:"mainCurrency"`
+	VsCurrency   string  `json:"vsCurrency"`
+	OpenPrice    float64 `json:"openPrice"`
+	ClosePrice   float64 `json:"closePrice"`
+}
+
 func fetchBitcoinPriceHistory(mainCurrency, vsCurrency string, days int) (float64, float64, error) {
 	from := time.Now().AddDate(0, 0, -days).Unix()
 	to := time.Now().Unix()
@@ -53,7 +60,18 @@ func priceHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Opening price of %s in %s 2 days ago was: %.2f\nClosing price today is: %.2f", mainCurrency, vsCurrency, openPrice, closePrice)
+	priceResponse := PriceResponse{
+		MainCurrency: mainCurrency,
+		VsCurrency:   vsCurrency,
+		OpenPrice:    openPrice,
+		ClosePrice:   closePrice,
+	}
+	// proper header
+	w.Header().Set("Content-Type", "application/json")
+
+	if err := json.NewEncoder(w).Encode(priceResponse); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func main() {

@@ -16,4 +16,4 @@ kind_load_image:
 	kind load docker-image currency-price-checker
 
 install_nginx:
-	kind load docker-image currency-price-checker
+	kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml

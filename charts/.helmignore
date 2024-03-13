@@ -1,0 +1,2 @@
+# Ignore sealed secrets stuff
+templates/SealedSecrets.yaml
