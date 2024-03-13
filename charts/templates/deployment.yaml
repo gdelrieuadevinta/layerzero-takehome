@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.service.name }}-deployment
+  labels:
+    app: {{ .Values.service.name }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{ .Values.service.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.service.name }}
+    spec:
+      containers:
+      - name: {{ .Values.service.name }}
+        image: {{ .Values.service.name }}:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MAIN_CURRENCY
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.service.name }}-configmap
+              key: MAIN_CURRENCY
+        - name: VS_CURRENCY
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.service.name }}-configmap
+              key: VS_CURRENCY
+        # Uncomment if needed to bake an API token:
+        # - name: {{ .Values.env.name.api_token }}
+        #   valueFrom:
+        #     secretKeyRef:
+        #       key: {{ .Values.env.name.api_token }}
+        #       name: {{ include "common.name" . }}-credentials

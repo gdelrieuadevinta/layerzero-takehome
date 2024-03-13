@@ -1,0 +1,5 @@
+apiVersion: v2
+appVersion: "latest"
+description: A simple service for checking the price of cryptocurrencies against fiat currencies
+name: currency-price-checker
+version: 0.1.0

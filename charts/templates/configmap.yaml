@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.service.name }}-configmap
+data:
+  MAIN_CURRENCY:  {{ .Values.currency.main_currency.name }}
+  VS_CURRENCY:  {{ .Values.currency.vs_currency.name }}

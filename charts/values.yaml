@@ -1,0 +1,14 @@
+service:
+  name: currency-price-checker
+
+currency:
+  main_currency:
+    name: bitcoin
+  vs_currency:
+    name: cny
+#   api_token:
+#     name: API_TOKEN
+
+# sealedSecret:
+#   encryptedData:
+#     API_TOKEN: ""
